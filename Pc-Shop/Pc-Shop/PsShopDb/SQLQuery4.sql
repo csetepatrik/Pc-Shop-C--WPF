@@ -1,0 +1,69 @@
+﻿CREATE TABLE [dbo].[PcRendelesre] (
+    [ID]      NUMERIC (2)   NOT NULL,
+    [RENDID]  NUMERIC (18)  NOT NULL,
+    [TIPUS]   VARCHAR (100) NULL,
+    [STATUSZ] NUMERIC (1)   NULL,
+    PRIMARY KEY CLUSTERED ([ID] ASC)
+);
+
+CREATE TABLE [dbo].[PC] (
+    [TIPUS] VARCHAR (100) NOT NULL,
+    PRIMARY KEY CLUSTERED ([TIPUS] ASC)
+);
+
+CREATE TABLE [dbo].[PcAlkatreszek] (
+    [ID]         NUMERIC (2)   NOT NULL,
+	[TIPUS] VARCHAR (100) NOT NULL,
+    [ALAPLAP]      VARCHAR (100) NULL,
+    [VIDEOKARTYA]        NUMERIC (2)   NULL,
+    [PROCESSZOR]      NUMERIC (2)   NULL,
+    [HDD]    NUMERIC (2)   NULL,
+    [SSD] NUMERIC (2)   NULL,
+    [MEMORIA]     NUMERIC (2)   NULL,
+    PRIMARY KEY CLUSTERED ([ID] ASC),
+    CONSTRAINT [megszoritas] FOREIGN KEY ([TIPUS]) REFERENCES [dbo].[PC]([TIPUS])
+);
+
+CREATE TABLE [dbo].[Felhasznalo] (
+    [ID]             NUMERIC (2)   NOT NULL,
+    [NEV]            VARCHAR (100) NOT NULL,
+    [BEOSZTAS]       VARCHAR (100) NULL,
+    [FelhasznaloNev] VARCHAR (100) NOT NULL,
+    [Jelszo]         VARCHAR (100) NOT NULL,
+    PRIMARY KEY CLUSTERED ([ID] ASC)
+);
+
+CREATE TABLE [dbo].[Raktar] (
+    [ID]         NUMERIC (1)  NOT NULL,
+    [ALAPLAP]        NUMERIC (20) NULL,
+    [VIDEOKARTYA]      NUMERIC (20) NULL,
+    [PROCESSZOR]    NUMERIC (20) NULL,
+    [HDD] NUMERIC (20) NULL,
+    [SSD]     NUMERIC (20) NULL,
+    [MEMORIA]      NUMERIC (20) NULL,
+    PRIMARY KEY CLUSTERED ([ID] ASC)
+);
+
+CREATE TABLE [dbo].[Rendelesek] (
+    [ID]       NUMERIC (2)   NOT NULL,
+    [NEV]      VARCHAR (100) NULL,
+    [STATUSZ]  NUMERIC (1)   NULL,
+    [CSA] VARCHAR (100) NULL,
+    PRIMARY KEY CLUSTERED ([ID] ASC)
+);
+
+CREATE TABLE [dbo].[Uzenetek] (
+    [ID]          NUMERIC (4)    NOT NULL,
+    [FELADO]      VARCHAR (100)  NOT NULL,
+    [CIMZETT]     VARCHAR (100)  NOT NULL,
+    [KULDESDATUM] DATE           NULL,
+    [KOZLEMENY]   VARCHAR (1000) NULL,
+    PRIMARY KEY CLUSTERED ([ID] ASC)
+);
+
+
+
+
+
+
+

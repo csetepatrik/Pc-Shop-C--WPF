@@ -1,0 +1,308 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Database1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Felhasznalo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="numeric" Precision="2" Scale="0" Nullable="false" />
+          <Property Name="NEV" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="BEOSZTAS" Type="varchar" MaxLength="100" />
+          <Property Name="FelhasznaloNev" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Jelszo" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PC">
+          <Key>
+            <PropertyRef Name="TIPUS" />
+          </Key>
+          <Property Name="TIPUS" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PcAlkatreszek">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="numeric" Precision="2" Scale="0" Nullable="false" />
+          <Property Name="TIPUS" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ALAPLAP" Type="varchar" MaxLength="100" />
+          <Property Name="VIDEOKARTYA" Type="numeric" Precision="2" Scale="0" />
+          <Property Name="PROCESSZOR" Type="numeric" Precision="2" Scale="0" />
+          <Property Name="HDD" Type="numeric" Precision="2" Scale="0" />
+          <Property Name="SSD" Type="numeric" Precision="2" Scale="0" />
+          <Property Name="MEMORIA" Type="numeric" Precision="2" Scale="0" />
+        </EntityType>
+        <EntityType Name="PcRendelesre">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="numeric" Precision="2" Scale="0" Nullable="false" />
+          <Property Name="RENDID" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="TIPUS" Type="varchar" MaxLength="100" />
+          <Property Name="STATUSZ" Type="numeric" Precision="1" Scale="0" />
+        </EntityType>
+        <EntityType Name="Raktar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="numeric" Precision="1" Scale="0" Nullable="false" />
+          <Property Name="ALAPLAP" Type="numeric" Precision="20" Scale="0" />
+          <Property Name="VIDEOKARTYA" Type="numeric" Precision="20" Scale="0" />
+          <Property Name="PROCESSZOR" Type="numeric" Precision="20" Scale="0" />
+          <Property Name="HDD" Type="numeric" Precision="20" Scale="0" />
+          <Property Name="SSD" Type="numeric" Precision="20" Scale="0" />
+          <Property Name="MEMORIA" Type="numeric" Precision="20" Scale="0" />
+        </EntityType>
+        <EntityType Name="Rendelesek">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="numeric" Precision="2" Scale="0" Nullable="false" />
+          <Property Name="NEV" Type="varchar" MaxLength="100" />
+          <Property Name="STATUSZ" Type="numeric" Precision="1" Scale="0" />
+          <Property Name="CSA" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Uzenetek">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="numeric" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="FELADO" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CIMZETT" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="KULDESDATUM" Type="date" />
+          <Property Name="KOZLEMENY" Type="varchar" MaxLength="1000" />
+        </EntityType>
+        <Association Name="megszoritas">
+          <End Role="PC" Type="Self.PC" Multiplicity="1" />
+          <End Role="PcAlkatreszek" Type="Self.PcAlkatreszek" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PC">
+              <PropertyRef Name="TIPUS" />
+            </Principal>
+            <Dependent Role="PcAlkatreszek">
+              <PropertyRef Name="TIPUS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Database1ModelStoreContainer">
+          <EntitySet Name="Felhasznalo" EntityType="Self.Felhasznalo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PC" EntityType="Self.PC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PcAlkatreszek" EntityType="Self.PcAlkatreszek" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PcRendelesre" EntityType="Self.PcRendelesre" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Raktar" EntityType="Self.Raktar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rendelesek" EntityType="Self.Rendelesek" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Uzenetek" EntityType="Self.Uzenetek" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="megszoritas" Association="Self.megszoritas">
+            <End Role="PC" EntitySet="PC" />
+            <End Role="PcAlkatreszek" EntitySet="PcAlkatreszek" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Felhasznalo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="2" Scale="0" Nullable="false" />
+          <Property Name="NEV" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BEOSZTAS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FelhasznaloNev" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Jelszo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PC">
+          <Key>
+            <PropertyRef Name="TIPUS" />
+          </Key>
+          <Property Name="TIPUS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="PcAlkatreszeks" Relationship="Self.megszoritas" FromRole="PC" ToRole="PcAlkatreszek" />
+        </EntityType>
+        <EntityType Name="PcAlkatreszek">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="2" Scale="0" Nullable="false" />
+          <Property Name="TIPUS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ALAPLAP" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="VIDEOKARTYA" Type="Decimal" Precision="2" Scale="0" />
+          <Property Name="PROCESSZOR" Type="Decimal" Precision="2" Scale="0" />
+          <Property Name="HDD" Type="Decimal" Precision="2" Scale="0" />
+          <Property Name="SSD" Type="Decimal" Precision="2" Scale="0" />
+          <Property Name="MEMORIA" Type="Decimal" Precision="2" Scale="0" />
+          <NavigationProperty Name="PC" Relationship="Self.megszoritas" FromRole="PcAlkatreszek" ToRole="PC" />
+        </EntityType>
+        <EntityType Name="PcRendelesre">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="2" Scale="0" Nullable="false" />
+          <Property Name="RENDID" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="TIPUS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="STATUSZ" Type="Decimal" Precision="1" Scale="0" />
+        </EntityType>
+        <EntityType Name="Raktar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="1" Scale="0" Nullable="false" />
+          <Property Name="ALAPLAP" Type="Decimal" Precision="20" Scale="0" />
+          <Property Name="VIDEOKARTYA" Type="Decimal" Precision="20" Scale="0" />
+          <Property Name="PROCESSZOR" Type="Decimal" Precision="20" Scale="0" />
+          <Property Name="HDD" Type="Decimal" Precision="20" Scale="0" />
+          <Property Name="SSD" Type="Decimal" Precision="20" Scale="0" />
+          <Property Name="MEMORIA" Type="Decimal" Precision="20" Scale="0" />
+        </EntityType>
+        <EntityType Name="Rendelesek">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="2" Scale="0" Nullable="false" />
+          <Property Name="NEV" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="STATUSZ" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="CSA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Uzenetek">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="FELADO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CIMZETT" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="KULDESDATUM" Type="DateTime" Precision="0" />
+          <Property Name="KOZLEMENY" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="megszoritas">
+          <End Role="PC" Type="Self.PC" Multiplicity="1" />
+          <End Role="PcAlkatreszek" Type="Self.PcAlkatreszek" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PC">
+              <PropertyRef Name="TIPUS" />
+            </Principal>
+            <Dependent Role="PcAlkatreszek">
+              <PropertyRef Name="TIPUS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Database1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Felhasznaloes" EntityType="Self.Felhasznalo" />
+          <EntitySet Name="PCs" EntityType="Self.PC" />
+          <EntitySet Name="PcAlkatreszeks" EntityType="Self.PcAlkatreszek" />
+          <EntitySet Name="PcRendelesres" EntityType="Self.PcRendelesre" />
+          <EntitySet Name="Raktars" EntityType="Self.Raktar" />
+          <EntitySet Name="Rendeleseks" EntityType="Self.Rendelesek" />
+          <EntitySet Name="Uzeneteks" EntityType="Self.Uzenetek" />
+          <AssociationSet Name="megszoritas" Association="Self.megszoritas">
+            <End Role="PC" EntitySet="PCs" />
+            <End Role="PcAlkatreszek" EntitySet="PcAlkatreszeks" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Database1ModelStoreContainer" CdmEntityContainer="Database1Entities">
+          <EntitySetMapping Name="Felhasznaloes">
+            <EntityTypeMapping TypeName="Database1Model.Felhasznalo">
+              <MappingFragment StoreEntitySet="Felhasznalo">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NEV" ColumnName="NEV" />
+                <ScalarProperty Name="BEOSZTAS" ColumnName="BEOSZTAS" />
+                <ScalarProperty Name="FelhasznaloNev" ColumnName="FelhasznaloNev" />
+                <ScalarProperty Name="Jelszo" ColumnName="Jelszo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PCs">
+            <EntityTypeMapping TypeName="Database1Model.PC">
+              <MappingFragment StoreEntitySet="PC">
+                <ScalarProperty Name="TIPUS" ColumnName="TIPUS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PcAlkatreszeks">
+            <EntityTypeMapping TypeName="Database1Model.PcAlkatreszek">
+              <MappingFragment StoreEntitySet="PcAlkatreszek">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TIPUS" ColumnName="TIPUS" />
+                <ScalarProperty Name="ALAPLAP" ColumnName="ALAPLAP" />
+                <ScalarProperty Name="VIDEOKARTYA" ColumnName="VIDEOKARTYA" />
+                <ScalarProperty Name="PROCESSZOR" ColumnName="PROCESSZOR" />
+                <ScalarProperty Name="HDD" ColumnName="HDD" />
+                <ScalarProperty Name="SSD" ColumnName="SSD" />
+                <ScalarProperty Name="MEMORIA" ColumnName="MEMORIA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PcRendelesres">
+            <EntityTypeMapping TypeName="Database1Model.PcRendelesre">
+              <MappingFragment StoreEntitySet="PcRendelesre">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="RENDID" ColumnName="RENDID" />
+                <ScalarProperty Name="TIPUS" ColumnName="TIPUS" />
+                <ScalarProperty Name="STATUSZ" ColumnName="STATUSZ" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Raktars">
+            <EntityTypeMapping TypeName="Database1Model.Raktar">
+              <MappingFragment StoreEntitySet="Raktar">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ALAPLAP" ColumnName="ALAPLAP" />
+                <ScalarProperty Name="VIDEOKARTYA" ColumnName="VIDEOKARTYA" />
+                <ScalarProperty Name="PROCESSZOR" ColumnName="PROCESSZOR" />
+                <ScalarProperty Name="HDD" ColumnName="HDD" />
+                <ScalarProperty Name="SSD" ColumnName="SSD" />
+                <ScalarProperty Name="MEMORIA" ColumnName="MEMORIA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rendeleseks">
+            <EntityTypeMapping TypeName="Database1Model.Rendelesek">
+              <MappingFragment StoreEntitySet="Rendelesek">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NEV" ColumnName="NEV" />
+                <ScalarProperty Name="STATUSZ" ColumnName="STATUSZ" />
+                <ScalarProperty Name="CSA" ColumnName="CSA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Uzeneteks">
+            <EntityTypeMapping TypeName="Database1Model.Uzenetek">
+              <MappingFragment StoreEntitySet="Uzenetek">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FELADO" ColumnName="FELADO" />
+                <ScalarProperty Name="CIMZETT" ColumnName="CIMZETT" />
+                <ScalarProperty Name="KULDESDATUM" ColumnName="KULDESDATUM" />
+                <ScalarProperty Name="KOZLEMENY" ColumnName="KOZLEMENY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
